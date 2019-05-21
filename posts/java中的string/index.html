@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-cn" >
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  
+  <meta name="author"
+        content="fredia"/>
+
+  
+  <meta name="description" content="Java中的String 概述（1.8 和1.9 对比） String被声明为final，因此它不可继承 在1.8中，String内部使用char数组存储 public final class String implements java.io.Serializable, Comparable&amp;lt;String&amp;gt;, CharSequence { /** The value is used for character storage. */ private final char value[]; } 1.9 中，St"/>
+  
+
+  
+  
+  <meta name="keywords" content="Hugo"/>
+  
+
+  
+  <link rel="canonical" href="https://fredia.github.io/posts/java%E4%B8%AD%E7%9A%84string/"/>
+
+  
+
+  <title>Java中的String &middot; 无尽光芒</title>
+
+  <link rel="shortcut icon" href="https://fredia.github.io/images/favicon.ico"/>
+  <link rel="stylesheet" href="https://fredia.github.io/css/animate.min.css"/>
+  <link rel="stylesheet" href="https://fredia.github.io/css/remixicon.css"/>
+  <link rel="stylesheet" href="https://fredia.github.io/css/zozo.css"/>
+  <link rel="stylesheet" href="https://fredia.github.io/css/highlight.css"/>
+
+  
+  
+</head>
+
+<body>
+<div class="main animated">
+  <div class="nav_container animated fadeInDown">
+  <div class="site_nav" id="site_nav">
+    <ul>
+      
+      <li>
+        <a href="/">首页</a>
+      </li>
+      
+      <li>
+        <a href="/posts/">归档</a>
+      </li>
+      
+      <li>
+        <a href="/tags/">标签</a>
+      </li>
+      
+      <li>
+        <a href="/about/">关于</a>
+      </li>
+      
+    </ul>
+  </div>
+  <div class="menu_icon">
+    <a id="menu_icon"><i class="remixicon-links-line"></i></a>
+  </div>
+</div>
+
+  <div class="header animated fadeInDown">
+  <div class="site_title_container">
+    <div class="site_title">
+      <h1>
+        <a href="https://fredia.github.io">
+          <span>无尽光芒</span>
+          <img src="https://fredia.github.io/images/logo.svg"/>
+        </a>
+      </h1>
+    </div>
+    <div class="description">
+      <p class="sub_title">lone fox</p>
+      <div class="my_socials">
+        
+        
+        <a href="https://github.com/fredia" title="github" target="_blank"><i class="remixicon-github-fill"></i></a>
+        
+        
+        
+        <a href="%20" title="instagram" target="_blank"><i class="remixicon-instagram-fill"></i></a>
+        
+        
+        
+        <a href="%20" title="twitter" target="_blank"><i class="remixicon-twitter-fill"></i></a>
+        
+        
+        
+        <a href="%20" title="weibo" target="_blank"><i class="remixicon-weibo-fill"></i></a>
+        
+        
+        <a href="https://fredia.github.io/index.xml" type="application/rss+xml" title="rss" target="_blank"><i class="remixicon-rss-fill"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="content">
+    <div class="post_page">
+      <div class="post animated fadeInDown">
+        <div class="post_title post_detail_title">
+          <h2><a href='/posts/java%E4%B8%AD%E7%9A%84string/'>Java中的String</a></h2>
+          <span class="date">2019.05.21</span>
+        </div>
+        <div class="post_content markdown">
+
+<h1 id="java中的string">Java中的String</h1>
+
+<h2 id="概述-1-8-和1-9-对比">概述（1.8 和1.9 对比）</h2>
+
+<p>String被声明为final，因此它不可继承
+在1.8中，String内部使用char数组存储</p>
+
+<pre><code class="language-Java">public final class String
+    implements java.io.Serializable, Comparable&lt;String&gt;, CharSequence {
+    /** The value is used for character storage. */
+    private final char value[];
+}
+</code></pre>
+
+<p>1.9 中，String类的实现改用byte数组存储字符串，同时使用coder来标识使用了哪种编码</p>
+
+<pre><code class="language-Java">public final class String
+    implements java.io.Serializable, Comparable&lt;String&gt;, CharSequence {
+    /** The value is used for character storage. */
+    private final byte[] value;
+
+    /** The identifier of the encoding used to encode the bytes in {@code value}. */
+    private final byte coder;
+}
+</code></pre>
+
+<h2 id="不可变的好处">不可变的好处</h2>
+
+<ol>
+<li>可以缓存hash值</li>
+<li>String Pool的需要</li>
+<li>安全性</li>
+<li>线程安全</li>
+</ol>
+
+<h2 id="new-string-abc">new String(&quot;abc&quot;)</h2>
+
+<p>使用这种方式一共会创建两个字符串对象（前提是 String Pool 中还没有 &quot;abc&quot; 字符串对象）。</p>
+
+<ul>
+<li>&quot;abc&quot; 属于字符串字面量，因此编译时期会在 String Pool 中创建一个字符串对象，指向这个 &quot;abc&quot; 字符串字面量；</li>
+<li>而使用 new 的方式会在堆中创建一个字符串对象。</li>
+</ul>
+
+<h2 id="string-stringbuffer-stringbuilder">String,StringBuffer,StringBuilder</h2>
+
+<ol>
+<li>可变性
+
+<ul>
+<li>String不可变</li>
+<li>StringBuffer和StringBuilder可变</li>
+</ul></li>
+<li>线程安全
+
+<ul>
+<li>String不可变，所以线程安全</li>
+<li>StringBuilder不是线程安全的，更有速度优势</li>
+<li>StringBuffer是线程安全的，内部使用synchronized进行同步
+<img src="https://i.loli.net/2019/05/21/5ce4129ebe5b127866.png" alt="20190521230044.png" /></li>
+</ul></li>
+</ol>
+
+<h2 id="string-pool">String pool</h2>
+
+<p>字符串常量池（String Pool）保存着所有字符串字面量（literal strings），这些字面量在编译时期就确定。不仅如此，还可以使用 String 的 intern() 方法在运行过程中将字符串添加到 String Pool 中。</p>
+
+<p>当一个字符串调用 intern() 方法时，如果 String Pool 中已经存在一个字符串和该字符串值相等（使用 equals() 方法进行确定），那么就会返回 String Pool 中字符串的引用；否则，就会在 String Pool 中添加一个新的字符串，并返回这个新字符串的引用。</p>
+
+<p>要注意的是，String的String Pool是一个固定大小的Hashtable，默认值大小长度是1009，如果放进String Pool的String非常多，就会造成Hash冲突严重，从而导致链表会很长，而链表长了后直接会造成的影响就是当调用String.intern时性能会大幅下降（因为要一个一个找）。</p>
+
+<p>在 jdk6中StringTable是固定的，就是1009的长度，所以如果常量池中的字符串过多就会导致效率下降很快。在jdk7中，StringTable的长度可以通过一个参数指定：
+<code>-XX:StringTableSize=99991</code></p>
+
+<p>在 Java 7 之前，String Pool 被放在运行时常量池中，它属于永久代。而在 Java 7，String Pool 被移到堆中。这是因为永久代的空间有限，在大量使用字符串的场景下会导致 OutOfMemoryError 错误。</p>
+
+<pre><code class="language-Java">public static void main(String[] args) {
+    String s = new String(&quot;1&quot;);//先把字面值放到pool，在生成堆对象
+    s.intern();
+    String s2 = &quot;1&quot;;
+    System.out.println(s == s2);
+
+    String s3 = new String(&quot;1&quot;) + new String(&quot;1&quot;);//这里没有“11”的字面值，所以JDK1.7中：先生成了堆对象，intern时再把堆对象的引用放到pool里
+    s3.intern(); // 注意顺序
+    String s4 = &quot;11&quot;;
+    System.out.println(s3 == s4);
+}
+/*
+JDK1.6 false false
+JDK1.7 false true
+*/
+</code></pre>
+
+<p><img src="https://i.loli.net/2019/05/21/5ce417445fbc965864.png" alt="20190521232036.png" /></p>
+
+<p>注：图中绿色线条代表 string 对象的内容指向。 黑色线条代表地址指向。</p>
+
+<p>如上图所示。首先说一下 jdk6中的情况，在 jdk6中上述的所有打印都是 false 的，因为 jdk6中的常量池是放在 Perm 区中的，Perm 区和正常的 JAVA Heap 区域是完全分开的。上面说过如果是使用引号声明的字符串都是会直接在字符串常量池中生成，而 new 出来的 String 对象是放在 JAVA Heap 区域。所以拿一个 JAVA Heap 区域的对象地址和字符串常量池的对象地址进行比较肯定是不相同的，即使调用String.intern方法也是没有任何关系的。</p>
+
+<p><img src="https://i.loli.net/2019/05/21/5ce417665550768201.png" alt="20190521232110.png" /></p>
+
+<ul>
+<li>在第一段代码中，先看 s3和s4字符串。String s3 = new String(&quot;1&quot;) + new String(&quot;1&quot;);，这句代码中现在生成了2最终个对象，是字符串常量池中的“1”(其实s已经生成了) 和 JAVA Heap 中的 s3引用指向的对象。中间还有2个匿名的new String(&quot;1&quot;)我们不去讨论它们。此时s3引用对象内容是”11”，但此时常量池中是没有 “11”对象的。</li>
+<li>接下来s3.intern();这一句代码，是将 s3中的“11”字符串放入 String 常量池中，因为此时常量池中不存在“11”字符串，因此常规做法是跟 jdk6 图中表示的那样，在常量池中生成一个 “11” 的对象，关键点是 jdk7 中常量池不在 Perm 区域了，这块做了调整。<strong>常量池中不需要再存储一份对象了，可以直接存储堆中的引用。这份引用指向 s3 引用的对象。</strong> 也就是说引用地址是相同的。</li>
+<li>最后String s4 = &quot;11&quot;; 这句代码中”11”是显示声明的，因此会直接去常量池中创建，创建的时候发现已经有这个对象了，此时也就是指向 s3 引用对象的一个引用。所以 s4 引用就指向和 s3 一样了。因此最后的比较 s3 == s4 是 true。</li>
+</ul>
+
+<pre><code class="language-Java">public static void main(String[] args) {
+    String s = new String(&quot;1&quot;);
+    String s2 = &quot;1&quot;;
+    s.intern();
+    System.out.println(s == s2);
+
+    String s3 = new String(&quot;1&quot;) + new String(&quot;1&quot;);
+    String s4 = &quot;11&quot;; // 先有“11”字面值，直接放到pool中 自动装箱：valueof会使用池中的对象
+    s3.intern(); 
+    System.out.println(s3 == s4);
+}
+/*
+JDK1.6 false false
+JDK1.7 false false
+*/
+</code></pre>
+
+<p><img src="https://i.loli.net/2019/05/21/5ce419cb0819475246.png" alt="20190521233121.png" />
+- 从上边第二幅图中观察。第一段代码和第二段代码的改变就是 s3.intern(); 的顺序是放在String s4 = &quot;11&quot;;后了。这样，首先执行String s4 = &quot;11&quot;;声明 s4 的时候常量池中是不存在“11”对象的，执行完毕后，“11“对象是 s4 声明产生的新对象。然后再执行s3.intern();时，常量池中“11”对象已经存在了，因此 s3 和 s4 的引用是不同的。
+- 第二段代码中的 s 和 s2 代码中，s.intern();，这一句往后放也不会有什么影响了，因为对象池中在执行第一句代码String s = new String(&quot;1&quot;);的时候已经生成“1”对象了。下边的s2声明都是直接从常量池中取地址引用的。 s 和 s2 的引用地址是不会相等的。</p>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li><a href="https://tech.meituan.com/2014/03/06/in-depth-understanding-string-intern.html">https://tech.meituan.com/2014/03/06/in-depth-understanding-string-intern.html</a></li>
+<li><a href="https://github.com/CyC2018/CS-Notes/blob/master/notes/Java%20%E5%9F%BA%E7%A1%80.md#%E4%B8%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">https://github.com/CyC2018/CS-Notes/blob/master/notes/Java%20%E5%9F%BA%E7%A1%80.md#%E4%B8%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B</a></li>
+</ul>
+</div>
+        <div class="post_footer">
+          
+          <div class="meta">
+            <div class="info">
+              <span class="field tags">
+                <i class="remixicon-stack-line"></i>
+                
+                <a href="https://fredia.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+                
+                <a href="https://fredia.github.io/tags/java/">Java</a>
+                
+              </span>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+      
+    </div>
+  </div>
+  <a id="back_to_top" href="#" class="back_to_top"><span>△</span></a>
+</div>
+<footer class="footer">
+  <div class="powered_by">
+    <a href="https://zeuk.me">Designed by Zeuk,</a>
+    <a href="http://www.gohugo.io/">Proudly published with Hugo</a>
+  </div>
+
+  <div class="footer_slogan">
+    <span>记录生活点滴</span>
+  </div>
+</footer>
+
+
+
+<script src="https://fredia.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://fredia.github.io/js/zozo.js"></script>
+<script src="https://fredia.github.io/js/highlight.pack.js"></script>
+<link  href="https://fredia.github.io/css/fancybox.min.css" rel="stylesheet">
+<script src="https://fredia.github.io/js/fancybox.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad()</script>
+
+
+  <script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+
+
+
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "fredia" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+</body>
+</html>

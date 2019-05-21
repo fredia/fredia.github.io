@@ -6,10 +6,19 @@
     <description>Recent content in Posts on 无尽光芒</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 21 May 2019 13:12:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 21 May 2019 23:40:00 +0800</lastBuildDate>
     
 	<atom:link href="https://fredia.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Java中的String</title>
+      <link>https://fredia.github.io/posts/java%E4%B8%AD%E7%9A%84string/</link>
+      <pubDate>Tue, 21 May 2019 23:40:00 +0800</pubDate>
+      
+      <guid>https://fredia.github.io/posts/java%E4%B8%AD%E7%9A%84string/</guid>
+      <description>Java中的String 概述（1.8 和1.9 对比） String被声明为final，因此它不可继承 在1.8中，String内部使用char数组存储 public final class String implements java.io.Serializable, Comparable&amp;lt;String&amp;gt;, CharSequence { /** The value is used for character storage. */ private final char value[]; } 1.9 中，St</description>
+    </item>
     
     <item>
       <title>字符串hash</title>
