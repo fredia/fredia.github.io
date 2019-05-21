@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-cn" >
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  
+  <meta name="author"
+        content="fredia"/>
+
+  
+  <meta name="description" content=" 转载自：https://www.zybuluo.com/xzyxzy/note/1173636
+ 哈希表常用于比较两个字符串是否相同（可以把状态看作字符串，从而比较状态是否相同）
+"/>
+  
+
+  
+  
+  <meta name="keywords" content="Hugo"/>
+  
+
+  
+  <link rel="canonical" href="https://fredia.github.io/posts/string_hash/"/>
+
+  
+
+  <title>字符串hash &middot; 无尽光芒</title>
+
+  <link rel="shortcut icon" href="https://fredia.github.io/images/favicon.ico"/>
+  <link rel="stylesheet" href="https://fredia.github.io/css/animate.min.css"/>
+  <link rel="stylesheet" href="https://fredia.github.io/css/remixicon.css"/>
+  <link rel="stylesheet" href="https://fredia.github.io/css/zozo.css"/>
+  <link rel="stylesheet" href="https://fredia.github.io/css/highlight.css"/>
+
+  
+  
+</head>
+
+<body>
+<div class="main animated">
+  <div class="nav_container animated fadeInDown">
+  <div class="site_nav" id="site_nav">
+    <ul>
+      
+      <li>
+        <a href="/">首页</a>
+      </li>
+      
+      <li>
+        <a href="/posts/">归档</a>
+      </li>
+      
+      <li>
+        <a href="/tags/">标签</a>
+      </li>
+      
+      <li>
+        <a href="/about/">关于</a>
+      </li>
+      
+    </ul>
+  </div>
+  <div class="menu_icon">
+    <a id="menu_icon"><i class="remixicon-links-line"></i></a>
+  </div>
+</div>
+
+  <div class="header animated fadeInDown">
+  <div class="site_title_container">
+    <div class="site_title">
+      <h1>
+        <a href="https://fredia.github.io">
+          <span>无尽光芒</span>
+          <img src="https://fredia.github.io/images/logo.svg"/>
+        </a>
+      </h1>
+    </div>
+    <div class="description">
+      <p class="sub_title">lone fox</p>
+      <div class="my_socials">
+        
+        
+        <a href="https://github.com/fredia" title="github" target="_blank"><i class="remixicon-github-fill"></i></a>
+        
+        
+        
+        <a href="%20" title="instagram" target="_blank"><i class="remixicon-instagram-fill"></i></a>
+        
+        
+        
+        <a href="%20" title="twitter" target="_blank"><i class="remixicon-twitter-fill"></i></a>
+        
+        
+        
+        <a href="%20" title="weibo" target="_blank"><i class="remixicon-weibo-fill"></i></a>
+        
+        
+        <a href="https://fredia.github.io/index.xml" type="application/rss+xml" title="rss" target="_blank"><i class="remixicon-rss-fill"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="content">
+    <div class="post_page">
+      <div class="post animated fadeInDown">
+        <div class="post_title post_detail_title">
+          <h2><a href='/posts/string_hash/'>字符串hash</a></h2>
+          <span class="date">2019.05.21</span>
+        </div>
+        <div class="post_content markdown"><blockquote>
+<p>转载自：<a href="https://www.zybuluo.com/xzyxzy/note/1173636">https://www.zybuluo.com/xzyxzy/note/1173636</a></p>
+</blockquote>
+
+<p>哈希表常用于比较两个字符串是否相同（可以把状态看作字符串，从而比较状态是否相同）</p>
+
+<h1 id="实现方式">实现方式</h1>
+
+<h2 id="一个例子">一个例子</h2>
+
+<p>通常将其看成一个进制数，比如 $ABAF$ 看成 $1216$，那么哈希值就是$Hash = 1*base^3 + 2*base^2 + 1*base +6$，可以自由决定，如果说状态量有限，可以使用较小的$base$使得所有状态不冲突，若状态量较大且分散，可以采用取模或者自然溢出的方式尽可能避免冲突</p>
+
+<h2 id="优缺点">优缺点</h2>
+
+<p>优点是可以$O(1)$比较（数组是$O(1)$如果用map就要加一个$log$）
+缺点是会有冲突，为避免冲突可以选择双哈希或三哈希等（选取不同的模数）</p>
+
+<h2 id="哈希方式">哈希方式</h2>
+
+<h3 id="进制哈希-用于判断状态-数组是否相同">进制哈希（用于判断状态/数组是否相同）</h3>
+
+<p>$$
+Hash[i] = Hash[i-1]*base + val[i]
+$$</p>
+
+<h3 id="树哈希-用于判断树的同构">树哈希（用于判断树的同构）</h3>
+
+<p>$$
+Hash[x] = \sum_{xor-sum}{(Hash[son_{1...k}]+bash1)*(siz[x]+base2)+deep[x]*base3}
+$$</p>
+
+<p>其实没有一定要求这么写，只是树的同构要求深度相同，孩子也同构但是与孩子的顺序无关，所以信息就是儿子的和深度和大小，可以灵活处理</p>
+
+<p>注意：base的选取原则是使得Hash值尽可能分散，尽可能少的冲突</p>
+
+<h1 id="题单">题单</h1>
+
+<ul class="task-list">
+<li><label><input type="checkbox" disabled class="task-list-item"> [AIZU2784]Similarity of Subtrees <a href="https://vjudge.net/problem/Aizu-2784">https://vjudge.net/problem/Aizu-2784</a></label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> [BZOJ3197/Luogu3296][SDOI2013]Assassin/刺客信条 <a href="https://www.luogu.org/problemnew/show/P3296">https://www.luogu.org/problemnew/show/P3296</a></label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> [BZOJ4754/Luogu4323][JSOI2016]独特的树叶 <a href="https://www.luogu.org/problemnew/show/P4323">https://www.luogu.org/problemnew/show/P4323</a></label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> [BZOJ5248][九省联考2018]一双木棋 <a href="https://www.luogu.org/problemnew/show/P4363">https://www.luogu.org/problemnew/show/P4363</a></label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> [BZOJ3555]企鹅QQ <a href="https://www.luogu.org/problemnew/show/P4503">https://www.luogu.org/problemnew/show/P4503</a></label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> [BZOJ3507/Luogu3167][CQOI2014]通配符匹配 <a href="https://www.luogu.org/problemnew/show/P3167">https://www.luogu.org/problemnew/show/P3167</a></label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> [BZOJ4892/Luogu3763][TJOI2017]DNA <a href="https://www.luogu.org/problemnew/show/P3763">https://www.luogu.org/problemnew/show/P3763</a></label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> [SDOI2007]游戏 <a href="https://www.luogu.org/problemnew/show/P2462">https://www.luogu.org/problemnew/show/P2462</a></label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> [HDU5469]Antonidas <a href="https://vjudge.net/problem/HDU-5469">https://vjudge.net/problem/HDU-5469</a></label></li>
+</ul></div>
+        <div class="post_footer">
+          
+          <div class="meta">
+            <div class="info">
+              <span class="field tags">
+                <i class="remixicon-stack-line"></i>
+                
+                <a href="https://fredia.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+                
+                <a href="https://fredia.github.io/tags/hash/">hash</a>
+                
+              </span>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+      
+    </div>
+  </div>
+  <a id="back_to_top" href="#" class="back_to_top"><span>△</span></a>
+</div>
+<footer class="footer">
+  <div class="powered_by">
+    <a href="https://zeuk.me">Designed by Zeuk,</a>
+    <a href="http://www.gohugo.io/">Proudly published with Hugo</a>
+  </div>
+
+  <div class="footer_slogan">
+    <span>记录生活点滴</span>
+  </div>
+</footer>
+
+
+
+<script src="https://fredia.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://fredia.github.io/js/zozo.js"></script>
+<script src="https://fredia.github.io/js/highlight.pack.js"></script>
+<link  href="https://fredia.github.io/css/fancybox.min.css" rel="stylesheet">
+<script src="https://fredia.github.io/js/fancybox.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad()</script>
+
+
+  <script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+
+
+
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "fredia" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+</body>
+</html>

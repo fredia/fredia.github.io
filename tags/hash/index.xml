@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>hash on 无尽光芒</title>
+    <link>https://fredia.github.io/tags/hash/</link>
+    <description>Recent content in hash on 无尽光芒</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 21 May 2019 13:12:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://fredia.github.io/tags/hash/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>字符串hash</title>
+      <link>https://fredia.github.io/posts/string_hash/</link>
+      <pubDate>Tue, 21 May 2019 13:12:00 +0800</pubDate>
+      
+      <guid>https://fredia.github.io/posts/string_hash/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;转载自：&lt;a href=&#34;https://www.zybuluo.com/xzyxzy/note/1173636&#34;&gt;https://www.zybuluo.com/xzyxzy/note/1173636&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;哈希表常用于比较两个字符串是否相同（可以把状态看作字符串，从而比较状态是否相同）&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
