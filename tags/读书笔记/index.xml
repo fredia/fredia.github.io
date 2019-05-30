@@ -13,11 +13,13 @@
     
     <item>
       <title>《Redis的设计与实现》读书笔记(1)</title>
-      <link>https://fredia.github.io/posts/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0_redis%E8%AE%BE%E8%AE%A1%E5%AE%9E%E7%8E%B0/</link>
+      <link>https://fredia.github.io/posts/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0_redis%E8%AE%BE%E8%AE%A1%E5%AE%9E%E7%8E%B01/</link>
       <pubDate>Wed, 29 May 2019 23:40:00 +0800</pubDate>
       
-      <guid>https://fredia.github.io/posts/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0_redis%E8%AE%BE%E8%AE%A1%E5%AE%9E%E7%8E%B0/</guid>
-      <description>一、数据结构与对象 1.SDS（简单字符串） struct sdsstr{ int len; int free; char buf[]; };//sds.h 小结： - Redis只会使用C字符串作为字面量，在大多数情况下，使用SDS作为字符串表示 - SDS的优点： - 常数复杂度获取字符串长度 - 杜绝缓冲区</description>
+      <guid>https://fredia.github.io/posts/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0_redis%E8%AE%BE%E8%AE%A1%E5%AE%9E%E7%8E%B01/</guid>
+      <description>&lt;h1 id=&#34;一-数据结构与对象&#34;&gt;一、数据结构与对象&lt;/h1&gt;
+
+&lt;h2 id=&#34;1-sds-简单字符串&#34;&gt;1.SDS（简单字符串）&lt;/h2&gt;</description>
     </item>
     
   </channel>
