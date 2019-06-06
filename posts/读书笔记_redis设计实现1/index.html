@@ -926,11 +926,13 @@ typedef struct zset {
 
 <p>Redis用于操作键的命令基本可以分为两种类型。其中一种可以对任何类型的键执行，如$DEL$命令，$EXPIRE$命令，$RENAME$命令，$TYPE$命令，$OBJECT$命令等。另一种智能对特定类型的键造作，如$SET$,$GET$只能对字符串键执行，$HDEL$,$HSET$命令只能对哈希键执行。</p>
 
-<p>####7.6.1 类型检查的实现
-根据redisObject结构的type属性实现。</p>
+<h4 id="7-6-1-类型检查的实现">7.6.1 类型检查的实现</h4>
 
-<p>####7.6.2多态命令的实现
-根据redisObject结构的encoding来选择正确的命令代码执行命令。</p>
+<p>根据redisObject结构的type属性实现。</p>
+
+<h4 id="7-6-2多态命令的实现">7.6.2多态命令的实现</h4>
+
+<p>根据redisObject结构的encoding来选择正确的命令代码执行命令。</p>
 
 <h3 id="7-7内存回收">7.7内存回收</h3>
 
