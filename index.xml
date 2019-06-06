@@ -6,7 +6,7 @@
     <description>Recent content on 无尽光芒</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 03 Jun 2019 10:40:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 04 Jun 2019 10:40:00 +0800</lastBuildDate>
     
 	<atom:link href="https://fredia.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>《Redis的设计与实现》读书笔记(2)</title>
       <link>https://fredia.github.io/posts/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0_redis%E8%AE%BE%E8%AE%A1%E5%AE%9E%E7%8E%B02/</link>
-      <pubDate>Mon, 03 Jun 2019 10:40:00 +0800</pubDate>
+      <pubDate>Tue, 04 Jun 2019 10:40:00 +0800</pubDate>
       
       <guid>https://fredia.github.io/posts/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0_redis%E8%AE%BE%E8%AE%A1%E5%AE%9E%E7%8E%B02/</guid>
       <description>二、单机数据库的实现 1.数据库 1.1 服务器中的数据库 struct redisServer { /* General */ // 配置文件的绝对路径 char *configfile; /* Absolute config file path, or NULL */ // serverCron() 每秒调用的次数 int hz; /* serverCron() calls frequency in hertz */ // 数据库 redisDb *db; ... int dbnum; /* Total number of configured DBs 默认值为16*/ }; 1.2 切换数据库 切换</description>
