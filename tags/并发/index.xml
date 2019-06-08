@@ -17,7 +17,7 @@
       <pubDate>Sat, 01 Jun 2019 00:08:00 +0800</pubDate>
       
       <guid>https://fredia.github.io/posts/synchronized%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</guid>
-      <description>一、synchronized的基本使用 &amp;emsp;synchronized是Java中解决并发问题的一种最常用的方法，也是最简单的一种方法。Synchronized的作用主要有三个： * 确保线程互斥的访</description>
+      <description>一、synchronized的基本使用 &amp;emsp;synchronized是Java中解决并发问题的一种最常用的方法，也是最简单的一种方法。Synchronized的作用主要有三个： 确保线程互斥的访问</description>
     </item>
     
   </channel>

@@ -258,7 +258,7 @@ typedef struct redisClient {
 <li><code>bgsave</code>:由子进程执行，服务器进程仍可以继续客户端请求。在bgsave期间，服务器会拒绝save，bgsave命令，防止条件竞争。拒绝bgrewriteaof命令，性能考虑。</li>
 </ul>
 
-<p>载入：在服务器启动时自动执行（AOF的优先级比RDB高，如果开启了AOF持久化功能，会优先使用AOF文件载入），载入期间服务器是阻塞的</p>
+<p>载入：在服务器启动时自动执行（AOF的优先级比RDB高，如果开启了AOF持久化功能，会优先使用AOF文件载入），<em>载入期间服务器是阻塞的</em></p>
 
 <h3 id="2-1自动间隔性保存">2.1自动间隔性保存</h3>
 

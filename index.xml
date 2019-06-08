@@ -6,10 +6,19 @@
     <description>Recent content on 无尽光芒</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 03 Jun 2019 10:40:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 07 Jun 2019 15:40:00 +0800</lastBuildDate>
     
 	<atom:link href="https://fredia.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>《Redis的设计与实现》读书笔记(3)</title>
+      <link>https://fredia.github.io/posts/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0_redis%E8%AE%BE%E8%AE%A1%E5%AE%9E%E7%8E%B03/</link>
+      <pubDate>Fri, 07 Jun 2019 15:40:00 +0800</pubDate>
+      
+      <guid>https://fredia.github.io/posts/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0_redis%E8%AE%BE%E8%AE%A1%E5%AE%9E%E7%8E%B03/</guid>
+      <description>三.多机数据库的实现 1.复制 在Redis中，用户可以通过slaveof命令或者slaveof选项实现，让一个服务器去复制（replicate）另一个服务器。 1.1旧版复制功能的实现（2.8版前） Red</description>
+    </item>
     
     <item>
       <title>《Redis的设计与实现》读书笔记(2)</title>
@@ -26,7 +35,7 @@
       <pubDate>Sat, 01 Jun 2019 00:08:00 +0800</pubDate>
       
       <guid>https://fredia.github.io/posts/synchronized%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</guid>
-      <description>一、synchronized的基本使用 &amp;emsp;synchronized是Java中解决并发问题的一种最常用的方法，也是最简单的一种方法。Synchronized的作用主要有三个： * 确保线程互斥的访</description>
+      <description>一、synchronized的基本使用 &amp;emsp;synchronized是Java中解决并发问题的一种最常用的方法，也是最简单的一种方法。Synchronized的作用主要有三个： 确保线程互斥的访问</description>
     </item>
     
     <item>
