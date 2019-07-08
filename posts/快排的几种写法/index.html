@@ -225,7 +225,7 @@ public int partition(int[] nums,int l,int r){
     int pivot = nums[index];
     int L = l, R = r;
       while(L &lt; R){
-            while(L &lt; R &amp;&amp; nums[L] &lt; pivot){
+            while(L &lt; R &amp;&amp; nums[L] &lt; pivot){//此处不能为&lt;=的原因是：为了避免当哨兵为最大(小)时，所有元素都分到一个数组的情况
                 L++;
             }
             while(L &lt; R &amp;&amp; nums[R] &gt; pivot){
