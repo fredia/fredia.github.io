@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-cn" >
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  
+  <meta name="author"
+        content="fredia"/>
+
+  
+  <meta name="description" content="partition一般用于快速排序中，也可用于求无序数组的第k大(中位数)等问题。partition的思想是根据一个哨兵(pivot)将数组分为大于(等于)或小于(等于)pivotde的两部分。 在pa"/>
+  
+
+  
+  
+  <meta name="keywords" content="Hugo"/>
+  
+
+  
+  <link rel="canonical" href="https://fredia.github.io/posts/%E5%BF%AB%E6%8E%92%E7%9A%84%E5%87%A0%E7%A7%8D%E5%86%99%E6%B3%95/"/>
+
+  
+
+  <title>partition的几种写法 &middot; 无尽光芒</title>
+
+  <link rel="shortcut icon" href="https://fredia.github.io/images/favicon.ico"/>
+  <link rel="stylesheet" href="https://fredia.github.io/css/animate.min.css"/>
+  <link rel="stylesheet" href="https://fredia.github.io/css/remixicon.css"/>
+  <link rel="stylesheet" href="https://fredia.github.io/css/zozo.css"/>
+  <link rel="stylesheet" href="https://fredia.github.io/css/highlight.css"/>
+
+  
+  
+</head>
+
+<body>
+<div class="main animated">
+  <div class="nav_container animated fadeInDown">
+  <div class="site_nav" id="site_nav">
+    <ul>
+      
+      <li>
+        <a href="/">首页</a>
+      </li>
+      
+      <li>
+        <a href="/posts/">归档</a>
+      </li>
+      
+      <li>
+        <a href="/tags/">标签</a>
+      </li>
+      
+      <li>
+        <a href="/about/">关于</a>
+      </li>
+      
+    </ul>
+  </div>
+  <div class="menu_icon">
+    <a id="menu_icon"><i class="remixicon-links-line"></i></a>
+  </div>
+</div>
+
+  <div class="header animated fadeInDown">
+  <div class="site_title_container">
+    <div class="site_title">
+      <h1>
+        <a href="https://fredia.github.io">
+          <span>无尽光芒</span>
+          <img src="https://fredia.github.io/images/logo.svg"/>
+        </a>
+      </h1>
+    </div>
+    <div class="description">
+      <p class="sub_title">lone fox</p>
+      <div class="my_socials">
+        
+        
+        <a href="https://github.com/fredia" title="github" target="_blank"><i class="remixicon-github-fill"></i></a>
+        
+        
+        <a href="https://fredia.github.io/index.xml" type="application/rss+xml" title="rss" target="_blank"><i class="remixicon-rss-fill"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="content">
+    <div class="post_page">
+      <div class="post animated fadeInDown">
+        <div class="post_title post_detail_title">
+          <h2><a href='/posts/%E5%BF%AB%E6%8E%92%E7%9A%84%E5%87%A0%E7%A7%8D%E5%86%99%E6%B3%95/'>partition的几种写法</a></h2>
+          <span class="date">2019.07.08</span>
+        </div>
+        <div class="post_content markdown">
+
+<p>partition一般用于快速排序中，也可用于求无序数组的第k大(中位数)等问题。partition的思想是根据一个哨兵(pivot)将数组分为大于(等于)或小于(等于)pivotde的两部分。</p>
+
+<p>在partition的过程中我遇到了两个比较困惑的问题：</p>
+
+<ul>
+<li>如何选择pivot？</li>
+<li>如何划分数组</li>
+</ul>
+
+<h2 id="pivot与时间复杂度">pivot与时间复杂度</h2>
+
+<p>快排的时间复杂度与pivot的选取有很大的关系。</p>
+
+<p>最坏时间复杂度为$O(n^2)$ ,当待排序的序列为正序或逆序排列时，且每次划分只得到一个比上一次划分少一个记录的子序列,需要执行n‐1次递归调用，且第i次划分需要经过n‐i次关键字的比较才能找到第i个记录，也就是枢轴的位置，因此比较次数为$\sum_{i=1}^{n-1}(n-i)=(n-1)n/2$,即$O(n^2)$</p>
+
+<p>最好的时间复杂度，当哨兵将数组均分为两部分时：</p>
+
+<p>$$
+T(n) = 2T(n/2)+n
+$$</p>
+
+<p>$$
+T(n) = 2(2T(n/4)+n/2)+n = 4T(n/4) +2n
+$$</p>
+
+<p>$$
+T(n) = 4(2T(n/8)+n/4)+2n = 8T(n/8) +3n
+$$</p>
+
+<p>$$
+且T(1)=0
+$$</p>
+
+<p>$$
+T(n) = nT(1) + (logn)n = nlogn
+$$</p>
+
+<p>平均时间复杂度(不会证，参考算法导论)：
+<img src="https://i.loli.net/2019/07/08/5d22c4823df6356683.png" alt="20190708122017.png" /></p>
+
+<p><img src="https://i.loli.net/2019/07/08/5d22c4dd80ee925272.png" alt="20190708122151.png" /></p>
+
+<p><img src="https://i.loli.net/2019/07/08/5d22c4b12e5c211919.png" alt="20190708122106.png" /></p>
+
+<h2 id="选择开头-结尾-的元素作为pivot">选择开头(结尾)的元素作为pivot</h2>
+
+<pre><code class="language-Java">public int partition1(int[] nums,int l,int r){
+    int pivot = nums[l];
+    while(l&lt;r){
+        while(l&lt;r&amp;&amp;nums[r]&gt;=pivot) r--; //必须先从r开始比较
+        nums[l] = nums[r];
+        while(l&lt;r&amp;&amp;nums[l]&lt;pivot) l++;
+        nums[r] = nums[l];
+    }
+    nums[l] = pivot; // 赋值
+    return l;
+}
+//稍微换一种写法，赋值-&gt;交换，则每次都是和哨兵交换。
+public int partition2(int[] nums,int l,int r){
+    int pivot = nums[l];
+    while(l&lt;r){
+        while(l&lt;r&amp;&amp;nums[r]&gt;=pivot) r--; //必须先从r开始比较
+        swap(nums,l,r);
+        while(l&lt;r&amp;&amp;nums[l]&lt;pivot) l++;
+        swap(nums,l,r);
+    }
+    //此处相比于partition1少了赋值 nums[l] = pivot; 
+    return l;
+}
+//leetcode讨论区中看到的一种写法
+public int partition3(int[] nums,int l,int r){
+    int pivot = nums[r];
+    int L = l;
+    for(int i=l;i&lt;r;i++){ //注意是r不用比较
+        if(nums[i]&lt;pivot){
+            swap(nums,L++,i);
+        }
+    }
+    swap(nums,L,r);
+    return l;
+}
+//排序：
+int p = partition(nums,l,r);
+sort(l,p-1);
+sort(p+1,r);
+</code></pre>
+
+<p>partition1选择开头作为哨兵，则开头的位置空出来了（所以开头可以本身的数不会丢失的情况下放置小于哨兵的数，因为pivot记录了开头的数）,把从r开始的第一个小于pivot的数放在开头的位置，则该位置又空出来了，如此反复，最后会空出来一个位置，用来放置哨兵。</p>
+
+<p>partition2把赋值改为交换操作，哨兵的值在交换中不会被覆盖，所以最后不用再赋值了（表达能力堪忧，具体参考这篇博文中的图<a href="https://www.cnblogs.com/fly-code-jia/articles/7702983.html）">https://www.cnblogs.com/fly-code-jia/articles/7702983.html）</a></p>
+
+<h2 id="随机选择pivot">随机选择pivot</h2>
+
+<p>每次选择开头(结尾)作为哨兵，可能会出现最坏的时间复杂度的情况，所以一般会随机选择一个哨兵：</p>
+
+<pre><code class="language-Java">//加上随机操作
+public int partition(int[] nums,int l,int r){
+    //随机选择一个元素与开头交换
+    int index = rand.nextInt(r - l + 1) + l;
+    swap(nums,l,index);
+    //或打乱数组：shuffle(nums);再选择开头
+    int pivot = nums[l];
+    while(l&lt;r){
+        while(l&lt;r&amp;&amp;nums[r]&gt;=pivot) r--; //必须先从r开始比较
+        nums[l] = nums[r];
+        while(l&lt;r&amp;&amp;nums[l]&lt;pivot) l++;
+        nums[r] = nums[l];
+    }
+    nums[l] = pivot; // 赋值
+    return l;
+}
+</code></pre>
+
+<p>以上的几种partition写法相当于每次都是移动哨兵，最后将数组划分为：</p>
+
+<pre><code>[[小于pivot] ,pivot, [大于等于pivot]] 三部分 
+</code></pre>
+
+<p>另外还有一类常见的partition写法，每次将数组划分为:</p>
+
+<pre><code>[[小于等于pivot]， [大于等于pivot]] 两部分 
+</code></pre>
+
+<pre><code class="language-Java">public void partition(int[] nums,int l,int r){
+    int index = rand.nextInt(end - start + 1) + start;
+    int pivot = nums[index];
+    int L = l, R = r;
+      while(L &lt; R){
+            while(L &lt; R &amp;&amp; nums[L] &lt; pivot){
+                L++;
+            }
+            while(L &lt; R &amp;&amp; nums[R] &gt; pivot){
+                R--;
+            }
+            if(L &lt; R){
+                int temp = nums[L];
+                nums[L] = nums[R];
+                nums[R] = temp;
+                L++;
+                R--;
+            }
+        }
+        /*
+        C只是分为两个部分，再对两个部分递归，不会把某个数去掉，区间可能不会减小。标准快排递归是p+1,p-1，区间一定会减小。此处while循环其实就是保证区间减小。
+        */
+        while(L &gt;= start &amp;&amp; nums[L] &gt;= pivot){
+            L--;
+        }
+        while(R &lt;= end &amp;&amp; nums[R] &lt;= pivot){
+            R++;
+        }
+        quickSort(nums, start, L);
+        quickSort(nums, R, end);
+}
+
+</code></pre>
+</div>
+        <div class="post_footer">
+          
+          <div class="meta">
+            <div class="info">
+              <span class="field tags">
+                <i class="remixicon-stack-line"></i>
+                
+                <a href="https://fredia.github.io/tags/%E7%AE%97%E6%B3%95/">算法</a>
+                
+              </span>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+      
+      
+<div class="doc_comments">
+  <div class="comments_block_title">发表评论</div>
+  <div id="vcomments"></div>
+</div>
+
+<link rel="stylesheet" href="https://fredia.github.io/css/comments.css"/>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+<script type="text/javascript">
+new Valine({
+  el: '#vcomments',
+  appId: 's6LnwR5WFoyazuWEk5ymoeE6-gzGzoHsz',
+  appKey: 'ePiYVmUeL6oMgNYNAMzFsLp9',
+  placeholder: ' ',
+  visitor: 'true',
+})
+</script>
+
+      
+    </div>
+  </div>
+  <a id="back_to_top" href="#" class="back_to_top"><span>△</span></a>
+</div>
+<footer class="footer">
+  <div class="powered_by">
+    <a href="https://zeuk.me">Designed by Zeuk,</a>
+    <a href="http://www.gohugo.io/">Proudly published with Hugo</a>
+  </div>
+
+  <div class="footer_slogan">
+    <span>记录生活点滴</span>
+  </div>
+</footer>
+
+
+
+<script src="https://fredia.github.io/js/jquery-3.3.1.min.js"></script>
+<script src="https://fredia.github.io/js/zozo.js"></script>
+<script src="https://fredia.github.io/js/highlight.pack.js"></script>
+<link  href="https://fredia.github.io/css/fancybox.min.css" rel="stylesheet">
+<script src="https://fredia.github.io/js/fancybox.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad()</script>
+
+
+  <script type="text/javascript" async src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+
+
+
+
+
+</body>
+</html>
